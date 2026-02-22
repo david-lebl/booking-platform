@@ -1,0 +1,21 @@
+[debug] [zinc] IncrementalCompile -----------
+[debug] IncrementalCompile.incrementalCompile
+[debug] previous = Stamps for: 0 products, 0 sources, 0 libraries
+[debug] current source = Set(${BASE}/core/src/main/scala/bookingplatform/core/service/Services.scala, ${BASE}/core/src/main/scala/bookingplatform/core/port/gateways.scala, ${BASE}/core/src/main/scala/bookingplatform/core/port/repositories.scala, ${BASE}/core/src/main/scala/bookingplatform/core/domain/model.scala)
+[debug] > initialChanges = InitialChanges(Changes(added = Set(${BASE}/core/src/main/scala/bookingplatform/core/service/Services.scala, ${BASE}/core/src/main/scala/bookingplatform/core/port/gateways.scala, ${BASE}/core/src/main/scala/bookingplatform/core/domain/model.scala, ${BASE}/core/src/main/scala/bookingplatform/core/port/repositories.scala), removed = Set(), changed = Set(), unmodified = ...),Set(),Set(),API Changes: Set())
+[debug] Full compilation, no sources in previous analysis.
+[debug] all 4 sources are invalidated
+[debug] Initial set of included nodes: 
+[debug] Recompiling all sources: number of invalidated sources > 50.0 percent of all sources
+[debug] compilation cycle 1
+[info] compiling 4 Scala sources to /home/runner/work/booking-platform/booking-platform/core/target/scala-3.3.4/classes ...
+[debug] Returning already retrieved and compiled bridge: /home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-sbt-bridge/3.3.4/scala3-sbt-bridge-3.3.4.jar.
+[debug] [zinc] Running cached compiler 67479191 for Scala Compiler version 3.3.4
+[debug] [zinc] The Scala compiler is invoked with:
+[debug] 	-deprecation
+[debug] 	-feature
+[debug] 	-unchecked
+[debug] 	-classpath
+[debug] 	/home/runner/work/booking-platform/booking-platform/core/target/scala-3.3.4/classes:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.3.4/scala3-library_3-3.3.4.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/zio_3/2.1.6/zio_3-2.1.6.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/zio-prelude_3/1.0.0-RC27/zio-prelude_3-1.0.0-RC27.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.14/scala-library-2.13.14.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/zio-internal-macros_3/2.1.6/zio-internal-macros_3-2.1.6.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/zio-stacktracer_3/2.1.6/zio-stacktracer_3-2.1.6.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/izumi-reflect_3/2.3.8/izumi-reflect_3-2.3.8.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/zio-prelude-macros_3/1.0.0-RC27/zio-prelude-macros_3-1.0.0-RC27.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/zio-streams_3/2.1.1/zio-streams_3-2.1.1.jar:/home/runner/.cache/coursier/v1/https/repo1.maven.org/maven2/dev/zio/izumi-reflect-thirdparty-boopickle-shaded_3/2.3.8/izumi-reflect-thirdparty-boopickle-shaded_3-2.3.8.jar
+[debug] Compilation failed
+[error] (core / Compile / compileIncremental) Compilation failed

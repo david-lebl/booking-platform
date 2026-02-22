@@ -1,0 +1,109 @@
+[error] -- [E007] Type Mismatch Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:38:69 
+[error] 38 |      now      <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]    |                                                                     ^
+[error]    |Found:    (e : Nothing)
+[error]    |Required: ?{ getMessage: ? }
+[error]    |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]    |must be more specific than ?{ getMessage: <?> }
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E172] Type Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:38:83 
+[error] 38 |      now      <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]    |                                                                                   ^
+[error]    |This error handling operation assumes your effect can fail. However, your effect has Nothing for the error type, which means it cannot fail, so there is no need to handle the failure. To find out which method you can use instead of this operation, please see the reference chart at: https://zio.dev/can_fail.
+[error]    |I found:
+[error]    |
+[error]    |    zio.CanFail.canFail[E](/* missing */summon[scala.util.NotGiven[E =:= Nothing]])
+[error]    |
+[error]    |But no implicit values were found that match type scala.util.NotGiven[E =:= Nothing].
+[error] -- [E007] Type Mismatch Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:222:70 
+[error] 222 |      now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                      ^
+[error]     |Found:    (e : Nothing)
+[error]     |Required: ?{ getMessage: ? }
+[error]     |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]     |must be more specific than ?{ getMessage: <?> }
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E172] Type Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:222:84 
+[error] 222 |      now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                                    ^
+[error]     |This error handling operation assumes your effect can fail. However, your effect has Nothing for the error type, which means it cannot fail, so there is no need to handle the failure. To find out which method you can use instead of this operation, please see the reference chart at: https://zio.dev/can_fail.
+[error]     |I found:
+[error]     |
+[error]     |    zio.CanFail.canFail[E](/* missing */summon[scala.util.NotGiven[E =:= Nothing]])
+[error]     |
+[error]     |But no implicit values were found that match type scala.util.NotGiven[E =:= Nothing].
+[error] -- [E007] Type Mismatch Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:239:70 
+[error] 239 |      now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                      ^
+[error]     |Found:    (e : Nothing)
+[error]     |Required: ?{ getMessage: ? }
+[error]     |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]     |must be more specific than ?{ getMessage: <?> }
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E172] Type Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:239:84 
+[error] 239 |      now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                                    ^
+[error]     |This error handling operation assumes your effect can fail. However, your effect has Nothing for the error type, which means it cannot fail, so there is no need to handle the failure. To find out which method you can use instead of this operation, please see the reference chart at: https://zio.dev/can_fail.
+[error]     |I found:
+[error]     |
+[error]     |    zio.CanFail.canFail[E](/* missing */summon[scala.util.NotGiven[E =:= Nothing]])
+[error]     |
+[error]     |But no implicit values were found that match type scala.util.NotGiven[E =:= Nothing].
+[error] -- [E007] Type Mismatch Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:326:65 
+[error] 326 |      now  <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                 ^
+[error]     |Found:    (e : Nothing)
+[error]     |Required: ?{ getMessage: ? }
+[error]     |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]     |must be more specific than ?{ getMessage: <?> }
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E172] Type Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:326:79 
+[error] 326 |      now  <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                               ^
+[error]     |This error handling operation assumes your effect can fail. However, your effect has Nothing for the error type, which means it cannot fail, so there is no need to handle the failure. To find out which method you can use instead of this operation, please see the reference chart at: https://zio.dev/can_fail.
+[error]     |I found:
+[error]     |
+[error]     |    zio.CanFail.canFail[E](/* missing */summon[scala.util.NotGiven[E =:= Nothing]])
+[error]     |
+[error]     |But no implicit values were found that match type scala.util.NotGiven[E =:= Nothing].
+[error] -- [E007] Type Mismatch Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:397:69 
+[error] 397 |      now      <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                     ^
+[error]     |Found:    (e : Nothing)
+[error]     |Required: ?{ getMessage: ? }
+[error]     |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]     |must be more specific than ?{ getMessage: <?> }
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E172] Type Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:397:83 
+[error] 397 |      now      <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                                   ^
+[error]     |This error handling operation assumes your effect can fail. However, your effect has Nothing for the error type, which means it cannot fail, so there is no need to handle the failure. To find out which method you can use instead of this operation, please see the reference chart at: https://zio.dev/can_fail.
+[error]     |I found:
+[error]     |
+[error]     |    zio.CanFail.canFail[E](/* missing */summon[scala.util.NotGiven[E =:= Nothing]])
+[error]     |
+[error]     |But no implicit values were found that match type scala.util.NotGiven[E =:= Nothing].
+[error] -- [E007] Type Mismatch Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:423:76 
+[error] 423 |            now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                            ^
+[error]     |Found:    (e : Nothing)
+[error]     |Required: ?{ getMessage: ? }
+[error]     |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]     |must be more specific than ?{ getMessage: <?> }
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E172] Type Error: /home/runner/work/booking-platform/booking-platform/core/src/main/scala/bookingplatform/core/service/Services.scala:423:90 
+[error] 423 |            now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+[error]     |                                                                                          ^
+[error]     |This error handling operation assumes your effect can fail. However, your effect has Nothing for the error type, which means it cannot fail, so there is no need to handle the failure. To find out which method you can use instead of this operation, please see the reference chart at: https://zio.dev/can_fail.
+[error]     |I found:
+[error]     |
+[error]     |    zio.CanFail.canFail[E](/* missing */summon[scala.util.NotGiven[E =:= Nothing]])
+[error]     |
+[error]     |But no implicit values were found that match type scala.util.NotGiven[E =:= Nothing].
+[error] 12 errors found
