@@ -42,7 +42,11 @@ object BookingId:
 
 // Value objects
 case class Email(value: String):
-  require(value.contains("@"), s"Invalid email: $value")
+  require(Email.isValid(value), s"Invalid email: $value")
+
+object Email:
+  private val emailRegex = """^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$""".r
+  def isValid(value: String): Boolean = emailRegex.matches(value)
 
 case class PhoneNumber(value: String)
 
