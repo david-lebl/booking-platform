@@ -320,7 +320,7 @@ object Routes:
     CalendarController.all
 
   val swaggerEndpoints =
-    SwaggerInterpreter().fromEndpoints[RIO[AppEnv, *]](Endpoints.all, "Booking Platform API", "1.0.0")
+    SwaggerInterpreter().fromEndpoints[[A] =>> RIO[AppEnv, A]](Endpoints.all, "Booking Platform API", "1.0.0")
 
   val allEndpoints: List[ZServerEndpoint[AppEnv, Any]] = serverEndpoints ++ swaggerEndpoints
 

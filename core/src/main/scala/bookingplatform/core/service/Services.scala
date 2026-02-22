@@ -35,7 +35,7 @@ case class UserServiceLive(userRepo: UserRepository) extends UserService:
     for
       existing <- liftTask(userRepo.findByEmail(email))
       _        <- ZIO.when(existing.isDefined)(ZIO.fail(AppError.ValidationError(s"Email $email already in use")))
-      now      <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+      now      <- Clock.instant
       user      = User(UUID.randomUUID(), name, email, phone, now)
       created  <- liftTask(userRepo.create(user))
     yield created
@@ -219,7 +219,7 @@ case class BookingServiceLive(
                        liftTask(paymentGateway.charge(userId, session.price, s"Booking for ${session.name}")).unit
       isSessionFull = scheduled.currentBookings >= session.capacity
       status     = if isSessionFull then BookingStatus.WaitListed else BookingStatus.Confirmed
-      now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+      now       <- Clock.instant
       booking    = Booking(UUID.randomUUID(), userId, scheduledSessionId, status, subscriptionId, now)
       created   <- liftTask(bookingRepo.create(booking))
       _         <- ZIO.when(!isSessionFull)(
@@ -236,7 +236,7 @@ case class BookingServiceLive(
                      .flatMap(_.fold(ZIO.fail(AppError.NotFound("ScheduledSession", booking.scheduledSessionId.toString)))(ZIO.succeed(_)))
       session   <- liftTask(sessionRepo.findById(scheduled.sessionId))
                      .flatMap(_.fold(ZIO.fail(AppError.NotFound("Session", scheduled.sessionId.toString)))(ZIO.succeed(_)))
-      now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+      now       <- Clock.instant
       hoursUntilSession = java.time.Duration.between(now, scheduled.startTime).toHours
       lateFee    = if hoursUntilSession > 24 then BigDecimal(0)
                    else if hoursUntilSession > 2 then session.price * BigDecimal(0.5)
@@ -323,7 +323,7 @@ case class SubscriptionServiceLive(
     for
       plan <- getPlan(planId)
       _    <- liftTask(paymentGateway.charge(userId, plan.price, s"Subscription: ${plan.name}"))
-      now  <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+      now  <- Clock.instant
       today = now.atZone(java.time.ZoneId.systemDefault()).toLocalDate
       endDate = plan.planType match
         case SubscriptionPlanType.Monthly => Some(today.plusMonths(1))
@@ -394,7 +394,7 @@ case class WaitlistServiceLive(
       existing <- liftTask(waitlistRepo.findByUserAndSession(userId, scheduledSessionId))
       _        <- ZIO.when(existing.isDefined)(ZIO.fail(AppError.ValidationError("Already on waitlist")))
       entries  <- liftTask(waitlistRepo.findByScheduledSession(scheduledSessionId))
-      now      <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+      now      <- Clock.instant
       entry     = WaitlistEntry(UUID.randomUUID(), userId, scheduledSessionId, entries.size + 1, now)
       created  <- liftTask(waitlistRepo.create(entry))
     yield created
@@ -420,7 +420,7 @@ case class WaitlistServiceLive(
             session   <- liftTask(sessionRepo.findById(scheduled.sessionId))
                            .flatMap(_.fold(ZIO.fail(AppError.NotFound("Session", scheduled.sessionId.toString)))(ZIO.succeed(_)))
             _         <- ZIO.when(scheduled.currentBookings >= session.capacity)(ZIO.fail(AppError.CapacityExceeded(scheduledSessionId.toString)))
-            now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
+            now       <- Clock.instant
             booking    = Booking(UUID.randomUUID(), entry.userId, scheduledSessionId, BookingStatus.Confirmed, None, now)
             created   <- liftTask(bookingRepo.create(booking))
             _         <- liftTask(scheduledSessionRepo.update(scheduled.copy(currentBookings = scheduled.currentBookings + 1)))

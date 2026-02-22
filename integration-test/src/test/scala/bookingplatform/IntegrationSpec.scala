@@ -106,7 +106,7 @@ object IntegrationSpec extends ZIOSpecDefault:
       yield
         assertTrue(booking1.status == BookingStatus.Confirmed) &&
         assertTrue(booking2.status == BookingStatus.WaitListed) &&
-        assertTrue(dupResult.is(_.Left))
+        assertTrue(dupResult.isLeft)
     },
 
     test("waitlist operations") {
@@ -171,4 +171,4 @@ object IntegrationSpec extends ZIOSpecDefault:
       yield
         assertTrue(cancelled.status == SubscriptionStatus.Cancelled)
     }
-  ).provideLayerShared(testLayers) @@ TestAspect.sequential
+  ).provideLayerShared(testLayers) @@ TestAspect.sequential @@ TestAspect.withLiveClock

@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /home/runner/work/booking-platform/booking-platform/infrastructure/src/main/scala/bookingplatform/infrastructure/controller/Controllers.scala:323:51 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m323 |[0m    SwaggerInterpreter().fromEndpoints[[35mRIO[0m[[35mAppEnv[0m, [35m*[0m]](Endpoints.all, [31m"Booking Platform API"[0m, [31m"1.0.0"[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m    |[0m                                                   ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m                                                   Not found: type *[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m    |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

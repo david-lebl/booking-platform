@@ -20,7 +20,7 @@ object Main:
       headerTag(
         cls := "header",
         h1("🏋️ Booking Platform"),
-        nav(
+        htmlTag("nav")(
           cls := "nav",
           navButton("Users", Page.Users),
           navButton("Sessions", Page.Sessions),

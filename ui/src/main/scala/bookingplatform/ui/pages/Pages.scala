@@ -1,5 +1,6 @@
 package bookingplatform.ui.pages
 
+import com.raquo.laminar.api.L
 import com.raquo.laminar.api.L.*
 import bookingplatform.ui.api.*
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -290,7 +291,7 @@ object UsersPage:
               cls := s"card ${if selectedId.contains(user.id) then "card-selected" else ""}",
               h4(user.name),
               p(user.email),
-              user.phone.map(p => bookingplatform.ui.pages.p(s"Phone: $p")).getOrElse(emptyNode),
+              user.phone.map(ph => L.p(s"Phone: $ph")).getOrElse(emptyNode),
               button(
                 cls := s"btn ${if selectedId.contains(user.id) then "btn-secondary" else "btn-primary"}",
                 if selectedId.contains(user.id) then "Selected ✓" else "Select",
@@ -302,5 +303,3 @@ object UsersPage:
       )
     )
 
-private def p(text: String): HtmlElement =
-  com.raquo.laminar.api.L.p(text)
