@@ -3,8 +3,9 @@ package com.booking.presentation.api
 import com.booking.application.*
 import com.booking.domain.model.*
 import com.booking.presentation.dto.*
-import sttp.tapir.*
+import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.*
+import sttp.tapir.ztapir.*
 import zio.*
 import java.util.UUID
 
@@ -16,7 +17,7 @@ class BookingApi(service: BookingApplicationService):
     base.post
       .in(jsonBody[CreateBookingRequest])
       .out(jsonBody[BookingResponse])
-      .zServerLogic { req =>
+      .zServerLogic[Any] { req =>
         ZIO.attempt {
           CreateBookingCommand(
             memberId       = MemberId(UUID.fromString(req.memberId)),
@@ -32,7 +33,7 @@ class BookingApi(service: BookingApplicationService):
     base.get
       .in(path[String]("id"))
       .out(jsonBody[BookingResponse])
-      .zServerLogic { idStr =>
+      .zServerLogic[Any] { idStr =>
         ZIO.attempt(UUID.fromString(idStr))
           .flatMap(uuid => service.getBooking(BookingId(uuid)))
           .flatMap {
@@ -47,7 +48,7 @@ class BookingApi(service: BookingApplicationService):
       .in(path[String]("id"))
       .in(query[String]("memberId"))
       .out(jsonBody[BookingResponse])
-      .zServerLogic { case (idStr, memberIdStr) =>
+      .zServerLogic[Any] { case (idStr, memberIdStr) =>
         ZIO.attempt {
           (BookingId(UUID.fromString(idStr)), MemberId(UUID.fromString(memberIdStr)))
         }
@@ -61,14 +62,14 @@ class BookingApi(service: BookingApplicationService):
       .in("api" / "members" / path[String]("memberId") / "bookings")
       .errorOut(jsonBody[ErrorResponse])
       .out(jsonBody[List[BookingResponse]])
-      .zServerLogic { memberIdStr =>
+      .zServerLogic[Any] { memberIdStr =>
         ZIO.attempt(UUID.fromString(memberIdStr))
           .flatMap(uuid => service.getMemberBookings(MemberId(uuid)))
           .map(_.map(BookingResponse.from))
           .mapError(e => ErrorResponse(e.getMessage))
       }
 
-  val routes = List(createEndpoint, getEndpoint, cancelEndpoint, memberBookingsEndpoint)
+  val routes: List[ZServerEndpoint[Any, Any]] = List(createEndpoint, getEndpoint, cancelEndpoint, memberBookingsEndpoint)
 
 object BookingApi:
   val layer: ZLayer[BookingApplicationService, Nothing, BookingApi] =

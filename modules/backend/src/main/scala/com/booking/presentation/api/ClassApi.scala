@@ -3,8 +3,9 @@ package com.booking.presentation.api
 import com.booking.application.*
 import com.booking.domain.model.*
 import com.booking.presentation.dto.*
-import sttp.tapir.*
+import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.*
+import sttp.tapir.ztapir.*
 import zio.*
 import java.time.Instant
 import java.util.UUID
@@ -18,7 +19,7 @@ class ClassApi(service: ClassApplicationService):
       .in("api" / "class-types")
       .in(jsonBody[CreateClassTypeRequest])
       .out(jsonBody[ClassTypeResponse])
-      .zServerLogic { req =>
+      .zServerLogic[Any] { req =>
         val difficulty = req.difficultyLevel match
           case "Intermediate" => DifficultyLevel.Intermediate
           case "Advanced"     => DifficultyLevel.Advanced
@@ -38,7 +39,7 @@ class ClassApi(service: ClassApplicationService):
     base.get
       .in("api" / "class-types")
       .out(jsonBody[List[ClassTypeResponse]])
-      .zServerLogic { _ =>
+      .zServerLogic[Any] { _ =>
         service.listClassTypes.map(_.map(ClassTypeResponse.from)).mapError(e => ErrorResponse(e.getMessage))
       }
 
@@ -47,7 +48,7 @@ class ClassApi(service: ClassApplicationService):
       .in("api" / "sessions")
       .in(jsonBody[ScheduleSessionRequest])
       .out(jsonBody[ClassSessionResponse])
-      .zServerLogic { req =>
+      .zServerLogic[Any] { req =>
         ZIO.attempt {
           ScheduleClassSessionCommand(
             classTypeId  = ClassTypeId(UUID.fromString(req.classTypeId)),
@@ -66,7 +67,7 @@ class ClassApi(service: ClassApplicationService):
     base.get
       .in("api" / "sessions")
       .out(jsonBody[List[ClassSessionResponse]])
-      .zServerLogic { _ =>
+      .zServerLogic[Any] { _ =>
         service.listUpcomingSessions.map(_.map(ClassSessionResponse.from)).mapError(e => ErrorResponse(e.getMessage))
       }
 
@@ -74,7 +75,7 @@ class ClassApi(service: ClassApplicationService):
     base.get
       .in("api" / "sessions" / path[String]("id"))
       .out(jsonBody[ClassSessionResponse])
-      .zServerLogic { idStr =>
+      .zServerLogic[Any] { idStr =>
         ZIO.attempt(UUID.fromString(idStr))
           .flatMap(uuid => service.getSession(ClassSessionId(uuid)))
           .flatMap {
@@ -88,7 +89,7 @@ class ClassApi(service: ClassApplicationService):
     base.get
       .in("api" / "instructors")
       .out(jsonBody[List[InstructorResponse]])
-      .zServerLogic { _ =>
+      .zServerLogic[Any] { _ =>
         service.listInstructors.map(_.map(InstructorResponse.from)).mapError(e => ErrorResponse(e.getMessage))
       }
 
@@ -96,11 +97,11 @@ class ClassApi(service: ClassApplicationService):
     base.get
       .in("api" / "studios")
       .out(jsonBody[List[StudioResponse]])
-      .zServerLogic { _ =>
+      .zServerLogic[Any] { _ =>
         service.listStudios.map(_.map(StudioResponse.from)).mapError(e => ErrorResponse(e.getMessage))
       }
 
-  val routes = List(
+  val routes: List[ZServerEndpoint[Any, Any]] = List(
     createClassTypeEndpoint,
     listClassTypesEndpoint,
     scheduleSessionEndpoint,

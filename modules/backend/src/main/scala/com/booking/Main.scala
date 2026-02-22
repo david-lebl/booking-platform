@@ -12,7 +12,7 @@ object Main extends ZIOAppDefault:
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] =
     Runtime.removeDefaultLoggers >>> SLF4J.slf4j
 
-  override def run: ZIO[ZIOAppArgs & ZEnvironment[Any] & Scope, Any, Any] =
+  override def run: ZIO[Any, Any, Any] =
     val host = "0.0.0.0"
     val port = 8080
 

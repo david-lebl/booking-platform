@@ -1,6 +1,7 @@
 package com.booking.presentation.dto
 
 import com.booking.domain.model.*
+import sttp.tapir.generic.auto.*
 import zio.json.*
 import java.time.Instant
 import java.util.UUID

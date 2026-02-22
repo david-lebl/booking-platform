@@ -3,9 +3,9 @@ package com.booking.presentation.api
 import com.booking.application.*
 import com.booking.domain.model.*
 import com.booking.presentation.dto.*
-import sttp.tapir.*
+import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.*
-import sttp.tapir.server.ziohttp.*
+import sttp.tapir.ztapir.*
 import zio.*
 import java.util.UUID
 
@@ -17,7 +17,7 @@ class MemberApi(service: MemberApplicationService):
     baseEndpoint.post
       .in(jsonBody[RegisterMemberRequest])
       .out(jsonBody[MemberResponse])
-      .zServerLogic { req =>
+      .zServerLogic[Any] { req =>
         val membershipType = req.membershipType match
           case "Premium" => MembershipType.Premium
           case "Basic"   => MembershipType.Basic
@@ -35,7 +35,7 @@ class MemberApi(service: MemberApplicationService):
     baseEndpoint.get
       .in(path[String]("id"))
       .out(jsonBody[MemberResponse])
-      .zServerLogic { idStr =>
+      .zServerLogic[Any] { idStr =>
         ZIO.attempt(UUID.fromString(idStr))
           .flatMap(uuid => service.getMember(MemberId(uuid)))
           .flatMap {
@@ -48,11 +48,11 @@ class MemberApi(service: MemberApplicationService):
   val listEndpoint =
     baseEndpoint.get
       .out(jsonBody[List[MemberResponse]])
-      .zServerLogic { _ =>
+      .zServerLogic[Any] { _ =>
         service.listMembers.map(_.map(MemberResponse.from)).mapError(e => ErrorResponse(e.getMessage))
       }
 
-  val routes = List(registerEndpoint, getByIdEndpoint, listEndpoint)
+  val routes: List[ZServerEndpoint[Any, Any]] = List(registerEndpoint, getByIdEndpoint, listEndpoint)
 
 object MemberApi:
   val layer: ZLayer[MemberApplicationService, Nothing, MemberApi] =

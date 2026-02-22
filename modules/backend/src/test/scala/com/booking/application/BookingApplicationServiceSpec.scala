@@ -26,12 +26,14 @@ object BookingApplicationServiceSpec extends ZIOSpecDefault:
                     maxCapacity  = 5,
                   )
         _       <- sessionRepo.save(session)
-        booking <- service.createBooking(CreateBookingCommand(member.id, session.id))
-        _       <- assertTrue(booking.memberId == member.id)
-        _       <- assertTrue(booking.classSessionId == session.id)
-        _       <- assertTrue(booking.status == BookingStatus.Confirmed)
+        booking   <- service.createBooking(CreateBookingCommand(member.id, session.id))
         cancelled <- service.cancelBooking(booking.id, member.id)
-      yield assertTrue(cancelled.status == BookingStatus.Cancelled)
+      yield assertTrue(
+        booking.memberId == member.id,
+        booking.classSessionId == session.id,
+        booking.status == BookingStatus.Confirmed,
+        cancelled.status == BookingStatus.Cancelled,
+      )
     }.provide(
       InMemoryMemberRepository.layer,
       InMemoryClassSessionRepository.layer,
