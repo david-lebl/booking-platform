@@ -1,7 +1,6 @@
 package com.booking.frontend
 
 import com.raquo.laminar.api.L.*
-import io.frontroute.*
 import org.scalajs.dom
 import com.booking.frontend.pages.*
 
@@ -12,6 +11,12 @@ object Main:
       appElement(),
     )
 
+  private val currentPath: Var[String] = Var(dom.window.location.pathname)
+
+  def navigateTo(path: String): Unit =
+    dom.window.history.pushState(null, "", path)
+    currentPath.set(path)
+
   def appElement(): Element =
     div(
       cls := "app",
@@ -20,25 +25,38 @@ object Main:
     )
 
   def headerElement(): Element =
-    header(
+    headerTag(
       cls := "app-header",
       div(
         cls := "header-content",
-        a(href := "/", cls := "logo", "🧘 PilatesBook"),
-        nav(
+        a(
+          href := "/",
+          cls := "logo",
+          "🧘 PilatesBook",
+          onClick.preventDefault --> { _ => navigateTo("/") },
+        ),
+        navTag(
           cls := "nav",
-          a(href := "/", "Schedule"),
-          a(href := "/profile", "My Bookings"),
+          a(
+            href := "/",
+            "Schedule",
+            onClick.preventDefault --> { _ => navigateTo("/") },
+          ),
+          a(
+            href := "/profile",
+            "My Bookings",
+            onClick.preventDefault --> { _ => navigateTo("/profile") },
+          ),
         ),
       ),
     )
 
   def mainElement(): Element =
-    main(
+    mainTag(
       cls := "app-main",
-      pathSwitch(
-        path(segment("profile"))(ProfilePage.render()),
-        path(segment("book") / segment)(sessionId => BookingPage.render(sessionId)),
-        pathEnd(SchedulePage.render()),
-      ),
+      child <-- currentPath.signal.map { path =>
+        if path == "/profile" then ProfilePage.render()
+        else if path.startsWith("/book/") then BookingPage.render(path.stripPrefix("/book/"))
+        else SchedulePage.render()
+      },
     )

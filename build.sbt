@@ -7,7 +7,6 @@ val zioLoggingVersion = "2.3.1"
 val tapirVersion      = "1.11.4"
 val quillVersion      = "4.8.5"
 val laminarVersion    = "17.0.0"
-val frontrouteVersion = "0.19.0"
 
 lazy val root = project
   .in(file("."))
@@ -55,8 +54,7 @@ lazy val frontend = project
     scalaVersion := scala3Version,
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
-      "com.raquo"     %%% "laminar"    % laminarVersion,
-      "io.frontroute" %%% "frontroute" % frontrouteVersion,
-      "dev.zio"       %%% "zio-json"   % zioJsonVersion,
+      "com.raquo" %%% "laminar"  % laminarVersion,
+      "dev.zio"   %%% "zio-json" % zioJsonVersion,
     ),
   )

@@ -18,8 +18,7 @@ A fitness and reformer pilates booking platform built with Scala 3, ZIO, and Lam
 
 ### Frontend
 - **Scala.js** – Scala compiled to JavaScript
-- **Laminar** – Reactive UI library
-- **frontroute** – Client-side routing
+- **Laminar** – Reactive UI library with signal-based routing
 
 ## Architecture
 
