@@ -315,9 +315,9 @@ object CalendarController:
 // ─── Routes ────────────────────
 object Routes:
   val serverEndpoints: List[ZServerEndpoint[AppEnv, Any]] =
-    UserController.all ++ TrainerController.all ++ SessionController.all ++
-    BookingController.all ++ SubscriptionController.all ++ WaitlistController.all ++
-    CalendarController.all
+    BookingController.all ++ SubscriptionController.all ++ CalendarController.all ++
+    WaitlistController.all ++ UserController.all ++ TrainerController.all ++
+    SessionController.all
 
   val swaggerEndpoints =
     SwaggerInterpreter().fromEndpoints[[A] =>> RIO[AppEnv, A]](Endpoints.all, "Booking Platform API", "1.0.0")

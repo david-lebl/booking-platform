@@ -159,7 +159,7 @@ object Endpoints:
 
   // ─── Calendar Endpoints ────────────────────
   val getUserCalendar = endpoint.tag("Calendar")
-    .get.in("api" / "users" / path[String]("userId") / "calendar.ics")
+    .get.in("api" / "users" / path[String]("userId") / "calendar")
     .out(stringBody)
     .errorOut(errorOutput)
 
