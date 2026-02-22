@@ -217,12 +217,12 @@ case class BookingServiceLive(
                        }
                      case None =>
                        liftTask(paymentGateway.charge(userId, session.price, s"Booking for ${session.name}")).unit
-      isFull     = scheduled.currentBookings >= session.capacity
-      status     = if isFull then BookingStatus.WaitListed else BookingStatus.Confirmed
+      isSessionFull = scheduled.currentBookings >= session.capacity
+      status     = if isSessionFull then BookingStatus.WaitListed else BookingStatus.Confirmed
       now       <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
       booking    = Booking(UUID.randomUUID(), userId, scheduledSessionId, status, subscriptionId, now)
       created   <- liftTask(bookingRepo.create(booking))
-      _         <- ZIO.when(!isFull)(
+      _         <- ZIO.when(!isSessionFull)(
                      liftTask(scheduledSessionRepo.update(scheduled.copy(currentBookings = scheduled.currentBookings + 1))))
     yield created
 
@@ -324,7 +324,7 @@ case class SubscriptionServiceLive(
       plan <- getPlan(planId)
       _    <- liftTask(paymentGateway.charge(userId, plan.price, s"Subscription: ${plan.name}"))
       now  <- Clock.instant.mapError(e => AppError.InternalError(e.getMessage))
-      today = LocalDate.now()
+      today = now.atZone(java.time.ZoneId.systemDefault()).toLocalDate
       endDate = plan.planType match
         case SubscriptionPlanType.Monthly => Some(today.plusMonths(1))
         case SubscriptionPlanType.Package => plan.validityDays.map(d => today.plusDays(d.toLong))
