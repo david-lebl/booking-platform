@@ -1,6 +1,6 @@
 # Booking Platform
 
-A fitness and reforming pilates booking platform built with Scala 3, ZIO, and Laminar.
+A fitness and reformer pilates booking platform built with Scala 3, ZIO, and Laminar.
 
 ## Technology Stack
 

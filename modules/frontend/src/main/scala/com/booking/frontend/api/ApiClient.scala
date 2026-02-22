@@ -2,7 +2,7 @@ package com.booking.frontend.api
 
 import com.raquo.laminar.api.L.*
 import org.scalajs.dom
-import org.scalajs.dom.{XMLHttpRequest, FormData}
+import org.scalajs.dom.XMLHttpRequest
 import scala.scalajs.js
 import scala.scalajs.js.JSON
 import scala.concurrent.{Future, Promise}

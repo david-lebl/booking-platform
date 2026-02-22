@@ -1,7 +1,5 @@
 package com.booking.domain.model
 
-import scala.concurrent.duration.*
-
 case class ClassType(
   id: ClassTypeId,
   name: String,
